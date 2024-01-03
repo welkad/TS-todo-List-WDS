@@ -10,13 +10,31 @@
       list-style: none;
       padding: 0;
     }
+    /* Add any additional styling here */
+    #new-task-form {
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+    }
+
+    #new-task-title {
+      margin-bottom: 10px;
+    }
+
+    #new-task-form button {      
+      width: 100%;      
+      max-width: 75px; /* Adjust the max-width as needed */
+      margin-bottom: 5px;
+    }
   </style>
 </head>
 <body>
   <form id="new-task-form">
-    <button type="submit" id="submitButton">Submit</button>    
     <input type="text" id="new-task-title">
-    <button type="button" id="clearButton">Clear</button>
+    <div class="button-container">
+      <button type="submit" id="submitButton">Submit</button>    
+      <button type="button" id="clearButton">Clear</button>
+    </div>
   </form>
   <ul id="list"></ul>
 </body>
