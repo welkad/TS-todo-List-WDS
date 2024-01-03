@@ -4,35 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="dist/index.js" type="module"></script>
-  <title>Document</title>
-  <style>
-    #list {
-      list-style: none;
-      padding: 0;
-    }
-    /* Add any additional styling here */
-    #new-task-form {
-      display: flex;
-      flex-direction: column;
-      align-items: left;
-    }
-
-    #new-task-title {
-      margin-bottom: 10px;
-    }
-
-    #new-task-form button {      
-      width: 100%;      
-      max-width: 75px; /* Adjust the max-width as needed */
-      margin-bottom: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="/style.css"/>
+  <title>Document</title>  
 </head>
 <body>
   <form id="new-task-form">
     <input type="text" id="new-task-title">
     <div class="button-container">
-      <button type="submit" id="submitButton">Submit</button>    
+      <button type="submit" id="submitButton">Submit</button>
       <button type="button" id="clearButton">Clear</button>
     </div>
   </form>
