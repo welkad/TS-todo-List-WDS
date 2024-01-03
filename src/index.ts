@@ -7,50 +7,69 @@ type Task = {
   createdAt: Date
 }
 
-const list = document.querySelector<HTMLUListElement>("#list")
-const form = document.getElementById("new-task-form") as HTMLFormElement | null
-const input = document.querySelector<HTMLInputElement>("#new-task-title")
-const tasks: Task[] = loadTasks()
-tasks.forEach(addListItem)
+document.addEventListener("DOMContentLoaded", function() {
 
-form?.addEventListener("submit", e => {
-  e.preventDefault()
+  const list = document.querySelector<HTMLUListElement>("#list")
+  const form = document.querySelector<HTMLFormElement>("#new-task-form")
+  const input = document.querySelector<HTMLInputElement>("#new-task-title")
 
-  if (input?.value == "" || input?.value == null) return
+  var submitButton = document.getElementById("submitButton")
+  var clearButton = document.getElementById("clearButton")
 
-  const newTask: Task = {
-    id: uuidV4(),
-    title: input.value,
-    completed: false,
-    createdAt: new Date()
-  }
-  tasks.push(newTask)
+  const tasks: Task[] = loadTasks()
+  tasks.forEach(addListItem)
 
-  addListItem(newTask)
-  input.value = ""
-})
+  submitButton?.addEventListener("click", e => {
+    e.preventDefault()
+    console.log("Submit button clicked")
 
-function addListItem(task: Task) {
-  const item = document.createElement('li')
-  const label = document.createElement('label')
-  const checkbox = document.createElement('input')
-  checkbox.addEventListener("change", () => {
-    task.completed = checkbox.checked
-    saveTasks()
+    if (input?.value == "" || input?.value == null) return
+
+    const newTask: Task = {
+      id: uuidV4(),
+      title: input.value,
+      completed: false,
+      createdAt: new Date()
+    }
+    tasks.push(newTask)
+
+    addListItem(newTask)
+    input.value = ""
   })
-  checkbox.type = "checkbox"
-  checkbox.checked = task.completed
-  label.append(checkbox, task.title)
-  item.append(label)
-  list?.append(item)
-}
 
-function saveTasks() {
-  localStorage.setItem("TASKS", JSON.stringify(tasks))
-}
+  clearButton?.addEventListener("click", e => {
+    console.log("Clear button clicked")
+    clearLocalStorage()    
+  })
 
-function loadTasks(): Task[] {
-  const taskJSON = localStorage.getItem("TASKS")
-  if (taskJSON == null) return []
-  return JSON.parse(taskJSON)
-}
+  function clearLocalStorage() {
+    localStorage.clear()
+    location.reload()
+  }
+
+  function addListItem(task: Task) {
+    const item = document.createElement('li')
+    const label = document.createElement('label')
+    const checkbox = document.createElement('input')
+    checkbox.addEventListener("change", () => {
+      task.completed = checkbox.checked
+      saveTasks()
+    })
+    checkbox.type = "checkbox"
+    checkbox.checked = task.completed
+    label.append(checkbox, task.title)
+    item.append(label)
+    list?.append(item)
+  }
+
+  function saveTasks() {
+    localStorage.setItem("TASKS", JSON.stringify(tasks))
+  }
+
+  function loadTasks(): Task[] {
+    const taskJSON = localStorage.getItem("TASKS")
+    if (taskJSON == null) return []
+    return JSON.parse(taskJSON)
+  }
+
+})
